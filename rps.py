@@ -1,6 +1,6 @@
 import random
 
-LINE = "\n–––––––––––––––––––––––––––––––––––––––––––––"
+LINE = "\n–––––––––––––––––––––––––––––––––———––––––––––––"
 
 class RockPaperScissors():
 
@@ -12,7 +12,7 @@ class RockPaperScissors():
         self.computer_score = 0
         self.rounds = 3
 
-
+    # ==================== LOGIC ====================
     def get_computer_choice(self):
         return random.choice(list(self.RULES.keys()))
 
@@ -24,7 +24,6 @@ class RockPaperScissors():
                 break
             else:
                 print("\nPlease enter a valid choice.")
-        
         return choice
 
     def check_win(self, human_choice, computer_choice):
@@ -57,10 +56,11 @@ class RockPaperScissors():
                     print("\nComputer won!")
                 
             self.rounds -= 1
-            print(f"\nHUMAN: {self.human_score} | COMPUTER: {self.computer_score}")
-            print(f'Rounds left: {self.rounds}')
+            print(self.get_score())
+            print(f'Rounds left: {self.rounds}' if self.rounds != 0 else 'Game Over!')
              
     def start(self):
+        self.print_menu()
         self.play()
         print(LINE)
         if self.human_score > self.computer_score:
@@ -69,3 +69,22 @@ class RockPaperScissors():
             print("\nComputer won the game!")
         if self.human_score == self.computer_score:
             print("\nPlayer and Computer tied.")
+        print(self.get_score())
+        print(LINE)
+
+    # ==================== UI ====================
+    def get_score(self):
+        return f'\nHUMAN: {self.human_score} | COMPUTER: {self.computer_score}'
+
+    def print_menu(self):
+        print(LINE)
+        print("\nROCK PAPER SCISSORS")
+        print("\nHow many rounds would you play against the computer?")
+        while True:
+            try:
+                int(self.rounds)
+                self.rounds = int(input("Rounds: "))
+                break
+            except ValueError:
+                print("\nInvalid input. Please try again.\n")
+        print(LINE)
