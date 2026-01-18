@@ -1,6 +1,7 @@
 import random
 
 LINE = "\n–––––––––––––––––––––––––––––––––———––––––––––––"
+INVALID_INP = "\nInvalid input. Please try again"
 
 class RockPaperScissors():
 
@@ -22,7 +23,7 @@ class RockPaperScissors():
             if choice in self.RULES:
                 break
             else:
-                print("\nPlease enter a valid choice.")
+                print(INVALID_INP)
         return choice
 
     def check_win(self, human_choice, computer_choice):
@@ -92,7 +93,11 @@ class RockPaperScissors():
         while True:
             try:
                 self.rounds = int(input("Rounds: "))
-                break
+                if self.rounds <= 0:
+                    print(INVALID_INP)
+                    continue
+                else: 
+                    break
             except ValueError:
-                print("\nInvalid input. Please try again.\n")
+                print(INVALID_INP)
         print(LINE)
