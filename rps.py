@@ -4,13 +4,12 @@ LINE = "\n–––––––––––––––––––––––�
 
 class RockPaperScissors():
 
-    
     def __init__(self):
         self.RULES = {"rock": "scissors", "paper": "rock", "scissors": "paper"}
 
         self.human_score = 0
         self.computer_score = 0
-        self.rounds = 3
+        self.rounds = 0
 
     # ==================== LOGIC ====================
     def get_computer_choice(self):
@@ -60,22 +59,27 @@ class RockPaperScissors():
             print(f'Rounds left: {self.rounds}' if self.rounds != 0 else 'Game Over!')
              
     def start(self):
-        self.print_menu()
-        self.play()
-        print(LINE)
-        if self.human_score > self.computer_score:
-            print("\nPlayer won the game!")
-        if self.human_score < self.computer_score:
-            print("\nComputer won the game!")
-        if self.human_score == self.computer_score:
-            print("\nPlayer and Computer tied.")
-        print(self.get_score())
-        print(LINE)
-        self.check_restart()
+        while True:
+            self.print_menu()
+            self.play()
+            print(LINE)
+            if self.human_score > self.computer_score:
+                print("\nPlayer won the game!")
+            elif self.human_score < self.computer_score:
+                print("\nComputer won the game!")
+            else:
+                print("\nPlayer and Computer tied.")
+            print(self.get_score())
+            print(LINE)
 
-    def check_restart(self):
-        if input("\nWould you want to play again? (y/n): ") == "y":
-            self.start()
+            if input("\nWould you want to play again? (y/n): ") != "y":
+                break
+            else:
+                self.reset_game()
+
+    def reset_game(self):
+        self.human_score = 0
+        self.computer_score = 0
 
     # ==================== UI ====================
     def get_score(self):
@@ -87,7 +91,6 @@ class RockPaperScissors():
         print("\nHow many rounds would you play against the computer?")
         while True:
             try:
-                int(self.rounds)
                 self.rounds = int(input("Rounds: "))
                 break
             except ValueError:
