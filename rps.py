@@ -71,6 +71,11 @@ class RockPaperScissors():
             print("\nPlayer and Computer tied.")
         print(self.get_score())
         print(LINE)
+        self.check_restart()
+
+    def check_restart(self):
+        if input("\nWould you want to play again? (y/n): ") == "y":
+            self.start()
 
     # ==================== UI ====================
     def get_score(self):
